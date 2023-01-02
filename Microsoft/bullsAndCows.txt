@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        vector<int>fsec(10,0);
+        vector<int>fguess(10,0);
+        int bull=0;
+        for(int i=0;i<guess.length();i++){
+           if(guess[i]==secret[i]) bull++;
+           else {
+               fsec[secret[i]-'0']++;
+               fguess[guess[i]-'0']++;
+           }
+        }
+        int cow=0;
+        for(int i=0;i<fsec.size();i++){
+            cow+=min(fsec[i],fguess[i]);//taking the min cuz we need to take what matches(extras will be eliminated
+        }
+        string s="";
+        s+=to_string(bull)+'A'+to_string(cow)+'B';
+        return s;        
+
+    }
+};
