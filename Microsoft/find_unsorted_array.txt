@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        
+        //find min most element 
+        int min1=INT_MAX,max1=INT_MIN;
+        bool flag=false;
+        for(int i=1;i<nums.size();i++){
+            if(nums[i]<nums[i-1]) flag=true;
+            if(flag) min1=min(min1,nums[i]);
+        }
+        flag=false;
+        for(int j=nums.size()-2;j>=0;j--){
+            if(nums[j]>nums[j+1]) flag=true;
+            if(flag) max1=max(max1,nums[j]);
+        }
+        // cout<<min1;
+        // cout<<max1;
+        // cout<<"....";
+        int i,j;
+        for( i=0;i<nums.size();i++){
+            if(nums[i]>min1) break;
+        }
+        for( j=nums.size()-1;j>=0;j--){
+            if(nums[j]<max1) break;
+        }
+        if(j-i<0) return 0;
+        else return j-i+1;
+    }
+};
